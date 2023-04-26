@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="blogpage_container mt-3">
+        <h3>Owner - @{{blog.user}}</h3>
+        <img src="https://th.bing.com/th/id/R.2a6ec20c1582f4d92fefb062e84576b6?rik=W2W%2fFKHQBMU%2frQ&pid=ImgRaw&r=0" class="img-fluid" alt="...">
+        <p>created at : {{blog.created}}</p>
+        <h1>{{blog.title}}</h1>
+        <p>{{blog.description}}</p>
+    </div>
+
+  {% if request.user.is_authenticated %}
+    <div class="reivew container">
+        <form action="" method="POST">
+            {% csrf_token %}
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Reviews</label>
+                <textarea name="body" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="write your review to {{blog.user}}"></textarea>
+                <button type="submit" class="btn btn-primary"> Comment </button>
+              </div>
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="review-container">
+        {% for x in reviews %}
+
+        <a class="navbar-brand" href="#">
+            <img src="https://th.bing.com/th/id/OIP.uk4eWbxQJDrAQLmry0xRKwHaHa?pid=ImgDet&rs=1" alt="Logo" width="30" height="24" class="d-inline-block align-text-top img-thumbnail">
+            @{{x.user}} &nbsp; &nbsp; &nbsp; &nbsp; {{x.created}}
+          </a>
+
+        <p>{{x.body}}</p>
+        <hr>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

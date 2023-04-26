@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+{% if action == 'create' %}
+<div class="container mt-5">
+    <h1>Create Your Blog</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="" class="form-label"> Choose Category</label>
+            <select name="category" id="category" class="form-select">
+                {% for x in category %}
+                <option value="{{x.id}}">{{x.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Title Of your Blog</label>
+          <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Description</label>
+            <textarea name="description" class="form-control"  id="exampleInputPassword1" cols="30" rows="10"></textarea>
+        </div>
+
+        <div id="emailHelp" class="form-text">Your Data Will be stored in the Database.</div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+
+{% else %}
+
+<div class="container mt-5">
+    <h1>Update {{blog.name}}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="" class="form-label"> Choose Category</label>
+            <select name="category" id="category" class="form-select">
+                {% for x in category %}
+                    {% if x.id == blog.category.id %}
+                <option value="{{x.id}}" selected>{{x.name}}</option>
+                {% else %}
+                <option value="{{x.id}}">{{x.name}}</option>
+
+                {% endif %}
+                
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Title Of your Blog</label>
+          <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{blog.title}}">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Description</label>
+            <textarea name="description" class="form-control"  id="exampleInputPassword1" cols="30" rows="10"value="">{{blog.description}}</textarea>
+        </div>
+
+        <div id="emailHelp" class="form-text">Your Data Will be stored in the Database.</div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+</div>
+
+{% endif %}
+
+{% endblock content %}

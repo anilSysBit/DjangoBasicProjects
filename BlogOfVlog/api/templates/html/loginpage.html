@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+{% if page == 'login' %}
+
+<form method="POST" class="mx-5 p-5">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" class="form-control" name="username">
+    <div id="emailHelp" class="form-text">We'll never share your username with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+{% else %}
+
+<div class="container">
+  <h1 class="text-center">Create Your Account</h1>
+  <form action="" method="POST" class="mx-5 p-5 form-control">
+    {{signupForm.as_p}}
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</div>
+
+{% endif %}
+
+{% endblock content %}

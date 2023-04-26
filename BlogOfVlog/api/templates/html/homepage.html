@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="home-container grid row">
+
+  <div class="category-container cotnainer col mt-3 mx-3">
+    <a href="{% url 'home' %}"><h2>All({{count}})</h2></a>
+      {% for item in category %}
+          <div>
+            <a href="{% url 'home' %}?q={{item.name}}"><h2>{{item.name}} ({{ item.get_blog_count }})</h2></a>
+          </div>
+      {% endfor %}
+  </div>
+    <div class="vlog_container mt-5 mx-2 col-md-8">
+        {% for blog in blogs %}
+        <div class="card mb-3 mx-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://th.bing.com/th/id/R.2a6ec20c1582f4d92fefb062e84576b6?rik=W2W%2fFKHQBMU%2frQ&pid=ImgRaw&r=0" class="img-fluid rounded-start img-fluid" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://th.bing.com/th/id/OIP.uk4eWbxQJDrAQLmry0xRKwHaHa?pid=ImgDet&rs=1" alt="Logo" width="30" height="24" class="d-inline-block align-text-top img-thumbnail">
+                        @{{blog.user}}
+                      </a>
+                  <a href="{% url 'blogpage' blog.id %}"><h5 class="card-title">{{blog.title}}</h5></a>
+                  <p>Category: {{blog.category}} {{category.blog}}</p>
+                  <p class="card-text">{{blog.description | truncatechars:50}}.............</p>
+                  <p class="card-text"><small class="text-body-secondary">Last updated {{blog.created}}</small></p>
+
+                  {% if request.user == blog.user %}
+                  <a href="{% url 'delete-blog' blog.id %}" class="btn btn-danger">Delete</a>
+                  <a href="{% url 'update-blog' blog.id %}" class="btn btn-warning"> Update</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

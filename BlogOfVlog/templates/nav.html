@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
+    <div class="container-fluid text-white">
+      <a class="navbar-brand text-white" href="{% url 'home' %}">BlogTheVlog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item ">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'create-blog' %}" class="btn btn-success">Create Blog</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search" action="{% url 'home' %}" method="GET">
+          {% csrf_token %}
+          <input class="form-control me-5" name="q" type="search" placeholder="Search" aria-label="Search">
+
+        </form>
+        <a href="{% url 'signup' %}" class="btn btn-success mx-2">Signup</a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="btn btn-primary">logout</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+          {% endif %}
+        <a class="navbar-brand mx-3" href="#">
+          <img src="https://th.bing.com/th/id/OIP.uk4eWbxQJDrAQLmry0xRKwHaHa?pid=ImgDet&rs=1" alt="Logo" width="30" height="24" class="d-inline-block align-text-top img-thumbnail">
+          {% if request.user.is_authenticated %}
+          {{request.user.username}}
+          {% else %}
+          anonymous
+          {% endif %}
+        </a>
+      </div>
+    </div>
+  </nav>
