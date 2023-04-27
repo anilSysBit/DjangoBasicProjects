@@ -10,4 +10,5 @@ urlpatterns = [
     path('create-blog/',views.CreateBlog,name='create-blog'),
     path('update-blog/<str:pk>',views.UpdateBlog,name='update-blog'),
     path('delete-blog/<str:pk>',views.deleteBlog,name='delete-blog'),
+    # path('check',views.CheckEmail,name='check'),
 ]

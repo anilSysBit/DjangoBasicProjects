@@ -9,8 +9,29 @@ from django.db.models import Q
 from .forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
+
+
 # Create your views here.
 
+
+
+def sucess_mail():
+    subject = 'Your Email Subject'
+    from_email = settings.EMAIL_HOST_USER
+    to_email = 'haflenhauro808@gmail.com'
+
+    html_content = render_to_string('email/register_sucess.html', {'content': 'value'})
+    text_content = strip_tags(html_content)
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
+    msg.attach_alternative(html_content, "text/html")
+
+    msg.send()
 
 
 def homepage(request):
@@ -94,6 +115,7 @@ def signup(request):
             user.save()
             user = authenticate(username=username, password=raw_password)
             login(request,user)
+            sucess_mail()
             return redirect('home')
         
         else:
@@ -164,3 +186,6 @@ def deleteBlog(request,pk):
     else:
         messages.error('Not Allowed')
         return redirect('home')
+    
+
+    
