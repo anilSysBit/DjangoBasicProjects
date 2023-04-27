@@ -24,6 +24,7 @@
 <div class="container">
   <h1 class="text-center">Create Your Account</h1>
   <form action="" method="POST" class="mx-5 p-5 form-control">
+    {% csrf_token %}
     {{signupForm.as_p}}
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
